@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Realizer.ViewModels"
+             xmlns:sh="clr-namespace:Realizer.Resources.SearchHandlers"
+             xmlns:models="clr-namespace:Realizer.Models"
+             x:DataType="vm:ProductsViewModel"
+             x:Class="Realizer.Pages.ProductsPage"
+             Title="Products">
+    <ContentPage.ToolbarItems>
+        <!--Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientsViewModel}}, Path=openAddClientCommand}"-->
+
+        <ToolbarItem IconImageSource="plus.png"
+                 Clicked="AddProduct_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
+
+    <Grid RowDefinitions="Auto,*">
+        <Grid Grid.Row="0"
+              x:Name="searchBar">
+            <SearchBar Placeholder="Search for Product..."
+               x:Name="searchWord"
+               SearchCommand="{Binding SearchProductsCommand}"
+               SearchCommandParameter="{Binding Text, Source={x:Reference searchWord}}"
+               CancelButtonColor="black"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              RowDefinitions="Auto, *">
+            <ScrollView VerticalOptions="FillAndExpand">
+                <CollectionView ItemsSource="{Binding Products}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                        ItemSpacing="10"
+                        Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Product">
+
+                            <Grid  RowDefinitions="*, *"
+                           Padding="10, 0"
+                           BackgroundColor="Plum">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.5*"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <!--two rows and two columns(edit, delete button)-->
+                                <Label Grid.RowSpan="2"
+                               Grid.Column="0"
+                               BackgroundColor="LightGoldenrodYellow"
+                               Text="{Binding product_name}"
+                               VerticalTextAlignment="Center"
+                               FontSize="16"
+                               FontAttributes="Bold"/>
+
+                                <Label Grid.Column="1"
+                               Grid.Row="0"
+                               Text="Price"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"
+                               Padding="5,0,5,0"/>
+
+                                <Label Grid.Column="1"
+                               Grid.Row="1"
+                               Text="{Binding price}"
+                               HorizontalTextAlignment="Center"
+                               FontSize="14"
+                               Padding="5,0,5,0"/>
+
+                                <Label Grid.Column="2"
+                               Text="In Hand"
+                               Padding="5, 5, 5, 0"
+                               FontSize="14"/>
+
+                                <Label Grid.Column="2"
+                               Grid.Row="1"
+                               Text="{Binding in_hand}"
+                               HorizontalTextAlignment="Center"
+                               FontSize="14"
+                               Padding="5,0,5,0"/>
+
+                                <Label Grid.Column="3"
+                               Grid.Row="0"
+                               Text="At Clients'"
+                               FontSize="14"
+                               Padding="5, 0, 5, 0"/>
+
+                                <Label Grid.Column="3"
+                               Grid.Row="1"
+                               Text="{Binding at_clients}"
+                               HorizontalTextAlignment="Center"
+                               FontSize="14"
+                               Padding="5,0,5,0"/>
+
+                                <Label Grid.Column="4"
+                               Grid.Row="0"
+                               Text="Sold/M"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"
+                               Padding="5,0,5,0"/>
+
+                                <Label Grid.Column="4"
+                               Grid.Row="2"
+                               Text="{Binding sold}"
+                               HorizontalTextAlignment="Center"
+                               FontSize="14"
+                               Padding="5,0,5,0"/>
+                                <!--<Button Grid.Row="1"
+                                Grid.Column="1"
+                                Text="Del"
+                                Padding="0"
+                                HeightRequest="25"
+                                FontSize="12"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClientsViewModel}}, Path=DeleteClientCommand}"
+                                CommandParameter="{Binding Id}"/>-->
+                                <ImageButton Source="backarrow.png"
+                                     Grid.Column="5"
+                                     Grid.RowSpan="2"
+                                     HeightRequest="30"
+                                     Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ProductsViewModel}}, Path=GoToProductIndivCommand}"
+                                     CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center">
+                                <Label Text="No Clients Found"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                            </VerticalStackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                    <!--when there is no client-->
+                </CollectionView>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

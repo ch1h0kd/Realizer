@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Realizer.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Realizer.Pages"
+    Title="Realizer">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Home"
+            Icon="home.png"
+            Shell.TabBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage" />
+
+        <ShellContent
+            Title="Clients"
+            Icon="person.png"
+            Shell.TabBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:ClientsPage}"
+            Route="ClientsPage" />
+
+        <ShellContent
+            Title="Products"
+            Icon="medicine_bag.png"
+            Shell.TabBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:ProductsPage}"
+            Route="ProductsPage" />
+
+        <ShellContent
+            Title="Stock"
+            Icon="boxes.png"
+            Shell.TabBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:StockPage}"
+            Route="StockPage" />
+
+        <ShellContent
+            Title="History"
+            Icon="history.png"
+            Shell.TabBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:HistoryPage}"
+            Route="HistoryPage" />
+
+        <ShellContent
+            Title="Settings"
+            Icon="settings.png"
+            Shell.TabBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:SettingsPage}"
+            Route="SettingsPage" />
+    </FlyoutItem>
+    <ShellContent ContentTemplate="{DataTemplate pages:NewClientPage}" Route="NewClientPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:ClientIndivPage}" Route="ClientIndivPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:NewProductPage}" Route="NewProductPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:ProductIndivPage}" Route="ProductIndivPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:NewVisitPage}" Route="NewVisitPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:ClientEditPage}" Route="ClientEditPage"/>
+</Shell>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Realizer.Models"
+             xmlns:vm="clr-namespace:Realizer.ViewModels"
+             x:Class="Realizer.Pages.ClientIndivPage"
+             x:DataType="vm:ClientsViewModel"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Title="{Binding OperatingClient.client_name}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="backarrow.png"
+                     Command="{Binding BackCommand}"/>
+        <ToolbarItem IconImageSource="settings.png"
+                     Command="{Binding GoToClientEditCommand}"
+                     CommandParameter="{Binding OperatingClient}"/>
+    </ContentPage.ToolbarItems>
+    
+    <Grid RowDefinitions="Auto, *"
+          Padding="15">
+        <VerticalStackLayout Spacing="10">
+            <Grid ColumnDefinitions="2*,*"
+                  RowSpacing="10">
+                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="10">
+                    <Label Text="ID"
+                            FontSize="14"
+                            TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.client_id}"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="10">
+                        <Label Text="Name"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                    <Label  Text="{Binding OperatingClient.client_name}"
+                            FontSize="14"/>
+                    <Label Text="Zip"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.zip}"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+            </Grid>
+            <VerticalStackLayout Grid.Row="1"
+                                 Spacing="10">
+                <Label Text="Address"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                <Label Grid.ColumnSpan="2"
+                           FontSize="16">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                            <Binding Path="OperatingClient.state"/>
+                            <Binding Path="OperatingClient.city"/>
+                            <Binding Path="OperatingClient.detail_address"/>
+                            <Binding Path="OperatingClient.apt_num"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <Label Text="Nickname"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                <Label Text="{Binding OperatingClient.nickname}"
+                           FontSize="16"/>
+
+                <!--<Label Text="Phone1"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.Phone1}"
+                           FontSize="16"/>
+
+                    <Label Text="Phone2"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.Phone2}"
+                           FontSize="16"/>-->
+
+                <Label Text="Date started visiting"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                <Label Text="{Binding OperatingClient.date_started}"
+                           FontSize="16"/>
+                <Label Text="Note"
+                       FontSize="14"
+                       TextColor="SlateGrey"/>
+                <Label Text="{Binding OperatingClient.note}"
+                               FontSize="16"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

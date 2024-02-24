@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Realizer.ViewModels"
+             xmlns:models="clr-namespace:Realizer.Models"
+             x:DataType="vm:ClientsViewModel"
+             x:Class="Realizer.Pages.ClientEditPage"
+             Title="{Binding OperatingClient.client_name}"
+             Shell.FlyoutBehavior="Disabled">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cancel.png"
+                     Command="{Binding GoToClientIndivCommand}"
+                     CommandParameter="{Binding OperatingClient}"/>
+        <ToolbarItem IconImageSource="check.png"
+                     Command="{Binding UpdateClientCommand}"/>
+    </ContentPage.ToolbarItems>
+    <Grid RowDefinitions="Auto, *"
+          Padding="15">
+        <Grid ColumnDefinitions="1.5*,*"
+                      RowSpacing="15">
+            <VerticalStackLayout>
+                <Label Text="Name*"
+                        FontSize="14"/>
+                <Entry  Text="{Binding OperatingClient.client_name, Mode=OneWay}"
+                        x:Name="NameEntry"
+                        Margin="0"
+                        FontSize="16"
+                        Keyboard="Text"
+                        ClearButtonVisibility="WhileEditing"/>
+                <Label Text="State"
+                            FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.state}"
+                       Placeholder="Enter Address"
+                       Margin="0"
+                       FontSize="16"
+                       ClearButtonVisibility="WhileEditing"/>
+                <Label Text="City"
+                       FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.city}"
+                       FontSize="16"/>
+                <Label Text="Apartment Number"
+           FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.apt_num}"
+                       MaxLength="30"
+                       Margin="0"
+                       Keyboard="Text"
+                       FontSize="16"
+                       ClearButtonVisibility="WhileEditing"/>
+
+                <Label Text="Nickname"
+                           FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.nickname}"
+                           MaxLength="20"
+                           Placeholder="Max 20 characters"
+                           Margin="0"
+                           FontSize="16"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                <Label Text="Phone1"
+           FontSize="14"/>
+                <!--<Entry Text="{Binding OperatingClient.Phone1, Mode=OneWayToSource}"
+                       MaxLength="15"
+                       Keyboard="Telephone"
+                       Margin="0"
+                       FontSize="16"
+                       ClearButtonVisibility="WhileEditing"/>
+
+                <Label Text="Phone2"
+           FontSize="14"/>
+                <Entry MaxLength="15"
+           Text="{Binding OperatingClient.Phone2, Mode=OneWayToSource}"
+                       Keyboard="Telephone"
+                       Margin="0"
+                       FontSize="16"
+                       ClearButtonVisibility="WhileEditing"/>-->
+
+                <Label Text="Date started visiting"
+                            FontSize="14"/>
+                <DatePicker Date="{Binding OperatingClient.date_started, Mode=OneWayToSource}"
+                                FontSize="16"
+                            MaximumDate="{Binding MaxDate}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="1">
+                <Label Text="ID*"
+                       x:Name="IdEntry"
+                        FontSize="14"/>
+                <Entry Placeholder="Must be unique"
+                           Text="{Binding OperatingClient.client_id, Mode=TwoWay}"
+                           Keyboard="Numeric"
+                           MaxLength="4"
+                           Margin="0"
+                           FontSize="16"
+                           ClearButtonVisibility="WhileEditing"/>
+                <Label Text="Zip"
+                        FontSize="14"/>
+                <Entry Placeholder="Enter Zip"
+                       Text="{Binding OperatingClient.zip}"
+                        Keyboard="Numeric"
+                       FontSize="16"
+                        ClearButtonVisibility="WhileEditing"/>
+                <Label Text="Street"
+           FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.detail_address}"
+           FontSize="16"/>
+            </VerticalStackLayout>
+        </Grid>
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Note"
+                        FontSize="14"/>
+            <Entry MaxLength="200"
+                       Text="{Binding OperatingClient.note}"
+                       Margin="0"
+                       FontSize="16"
+                       ClearButtonVisibility="WhileEditing"/>
+            <Button Text="Delete"
+                    Margin="15"
+                    Command="{Binding DeleteClientCommand}"
+                    CommandParameter="{Binding OperatingClient.client_key}"
+                    BackgroundColor="Green"
+                    HeightRequest="50"
+                    WidthRequest="150"
+                    FontSize="16"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

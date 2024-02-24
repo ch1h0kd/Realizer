@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Realizer.ViewModels"
+             xmlns:models="clr-namespace:Realizer.Models"
+             x:DataType="vm:ProductsViewModel"
+             x:Class="Realizer.Pages.NewProductPage"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Title="New Product">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="check.png"
+                    Command="{Binding SaveProductCommand}"/>
+        <ToolbarItem IconImageSource="cancel.png"
+                    Clicked="BackToProduct_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid RowDefinitions="Auto, Auto"
+          ColumnDefinitions="*,*"
+         Padding="10"
+         RowSpacing="15">
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.ColumnSpan="2">
+            <Label Text="Name*"
+       FontSize="17"/>
+            <Entry  Text="{Binding OperatingProduct.product_name, Mode=OneWayToSource}"
+        Margin="0"
+        FontSize="17"
+        Keyboard="Text"
+        ClearButtonVisibility="WhileEditing"/>
+
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="0"
+                             Spacing="10">
+            <Label Text="Price*"
+                   FontSize="17"/>
+            <Entry Placeholder="Enter Price per Unit"
+                   Text="{Binding OperatingProduct.price, Mode=OneWayToSource}"
+                   Margin="0"
+                   Keyboard="Numeric"
+                   MaxLength="8"
+                   FontSize="17"
+                   ClearButtonVisibility="WhileEditing"/>
+            <Label Text="Category"
+                   FontSize="17"/>
+            <Picker Title="Select a Category">
+                <!--SelectedIndexChanged=""-->
+                <Picker.Items>
+                    <x:String>Cold Medicine</x:String>
+                    <x:String>Headache Pill</x:String>
+                    <x:String>Add New</x:String>
+                </Picker.Items>
+            </Picker>
+            <Label Text="At Clients'"
+                    FontSize="17"/>
+            <Entry MaxLength="5"
+                   Text="{Binding OperatingProduct.at_clients, Mode=OneWayToSource}"
+                     Keyboard="Numeric"
+                     Margin="0"
+                     FontSize="17"
+                     ClearButtonVisibility="WhileEditing"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="1"
+                             Spacing="10">
+            <Label Text="Tax*"
+                   FontSize="17"/>
+            <Entry FontSize="17"
+                   Text="{Binding OperatingProduct.tax, Mode=OneWayToSource}"
+                   Keyboard="Numeric"
+                   MaxLength="2"
+                   Placeholder="%"/>
+            <Label Text="In Hold"
+                   FontSize="17"/>
+            <Entry MaxLength="5"
+                   Text="{Binding OperatingProduct.in_hand, Mode=OneWayToSource}"
+                     Keyboard="Numeric"
+                     Margin="0"
+                     FontSize="17"
+                     ClearButtonVisibility="WhileEditing"/>
+            <Label Text="Total"
+                   FontSize="17"/>
+            <Entry MaxLength="5"
+                   Text="{Binding OperatingProduct.total, Mode=OneWayToSource}"
+                   Keyboard="Numeric"
+                   Margin="0"
+                   FontSize="17"
+                   ClearButtonVisibility="WhileEditing"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
