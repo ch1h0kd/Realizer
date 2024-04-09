@@ -11,7 +11,7 @@ namespace Realizer.Models
     {
         [PrimaryKey, AutoIncrement]
         public int phoneNum_id { get; set; }
-        public string client_id { get; set; }
+        public int client_id { get; set; }
         public int number { get; set; }
     }
 }

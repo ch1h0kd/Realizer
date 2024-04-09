@@ -15,51 +15,52 @@
         <ToolbarItem IconImageSource="check.png"
                      Command="{Binding UpdateClientCommand}"/>
     </ContentPage.ToolbarItems>
-    <Grid RowDefinitions="Auto, *"
+    <ScrollView VerticalOptions="FillAndExpand">
+        <Grid RowDefinitions="Auto, *"
           Padding="15">
-        <Grid ColumnDefinitions="1.5*,*"
+            <Grid ColumnDefinitions="1.5*,*"
                       RowSpacing="15">
-            <VerticalStackLayout>
-                <Label Text="Name*"
+                <VerticalStackLayout>
+                    <Label Text="Name*"
                         FontSize="14"/>
-                <Entry  Text="{Binding OperatingClient.client_name, Mode=OneWay}"
+                    <Entry  Text="{Binding OperatingClient.client_name}"
                         x:Name="NameEntry"
                         Margin="0"
                         FontSize="16"
                         Keyboard="Text"
                         ClearButtonVisibility="WhileEditing"/>
-                <Label Text="State"
+                    <Label Text="State"
                             FontSize="14"/>
-                <Entry Text="{Binding OperatingClient.state}"
+                    <Entry Text="{Binding OperatingClient.state}"
                        Placeholder="Enter Address"
                        Margin="0"
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>
-                <Label Text="City"
+                    <Label Text="City"
                        FontSize="14"/>
-                <Entry Text="{Binding OperatingClient.city}"
+                    <Entry Text="{Binding OperatingClient.city}"
                        FontSize="16"/>
-                <Label Text="Apartment Number"
+                    <Label Text="Apartment Number"
            FontSize="14"/>
-                <Entry Text="{Binding OperatingClient.apt_num}"
+                    <Entry Text="{Binding OperatingClient.apt_num}"
                        MaxLength="30"
                        Margin="0"
                        Keyboard="Text"
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>
 
-                <Label Text="Nickname"
+                    <Label Text="Nickname"
                            FontSize="14"/>
-                <Entry Text="{Binding OperatingClient.nickname}"
+                    <Entry Text="{Binding OperatingClient.nickname}"
                            MaxLength="20"
                            Placeholder="Max 20 characters"
                            Margin="0"
                            FontSize="16"
                            ClearButtonVisibility="WhileEditing"/>
 
-                <Label Text="Phone1"
+                    <Label Text="Phone1"
            FontSize="14"/>
-                <!--<Entry Text="{Binding OperatingClient.Phone1, Mode=OneWayToSource}"
+                    <!--<Entry Text="{Binding OperatingClient.Phone1, Mode=OneWayToSource}"
                        MaxLength="15"
                        Keyboard="Telephone"
                        Margin="0"
@@ -75,45 +76,45 @@
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>-->
 
-                <Label Text="Date started visiting"
+                    <Label Text="Date started visiting"
                             FontSize="14"/>
-                <DatePicker Date="{Binding OperatingClient.date_started, Mode=OneWayToSource}"
+                    <DatePicker Date="{Binding OperatingClient.date_started, Mode=OneWayToSource}"
                                 FontSize="16"
                             MaximumDate="{Binding MaxDate}"/>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Column="1">
-                <Label Text="ID*"
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="ID*"
                        x:Name="IdEntry"
                         FontSize="14"/>
-                <Entry Placeholder="Must be unique"
+                    <Entry Placeholder="Must be unique"
                            Text="{Binding OperatingClient.client_id, Mode=TwoWay}"
                            Keyboard="Numeric"
                            MaxLength="4"
                            Margin="0"
                            FontSize="16"
                            ClearButtonVisibility="WhileEditing"/>
-                <Label Text="Zip"
+                    <Label Text="Zip"
                         FontSize="14"/>
-                <Entry Placeholder="Enter Zip"
+                    <Entry Placeholder="Enter Zip"
                        Text="{Binding OperatingClient.zip}"
                         Keyboard="Numeric"
                        FontSize="16"
                         ClearButtonVisibility="WhileEditing"/>
-                <Label Text="Street"
+                    <Label Text="Street"
            FontSize="14"/>
-                <Entry Text="{Binding OperatingClient.detail_address}"
+                    <Entry Text="{Binding OperatingClient.detail_address}"
            FontSize="16"/>
-            </VerticalStackLayout>
-        </Grid>
-        <VerticalStackLayout Grid.Row="1">
-            <Label Text="Note"
+                </VerticalStackLayout>
+            </Grid>
+            <VerticalStackLayout Grid.Row="1">
+                <Label Text="Note"
                         FontSize="14"/>
-            <Entry MaxLength="200"
+                <Entry MaxLength="200"
                        Text="{Binding OperatingClient.note}"
                        Margin="0"
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>
-            <Button Text="Delete"
+                <Button Text="Delete"
                     Margin="15"
                     Command="{Binding DeleteClientCommand}"
                     CommandParameter="{Binding OperatingClient.client_key}"
@@ -121,6 +122,7 @@
                     HeightRequest="50"
                     WidthRequest="150"
                     FontSize="16"/>
-        </VerticalStackLayout>
-    </Grid>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

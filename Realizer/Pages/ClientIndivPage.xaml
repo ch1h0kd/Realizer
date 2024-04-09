@@ -65,22 +65,35 @@
                 <Label Text="{Binding OperatingClient.nickname}"
                            FontSize="16"/>
 
-                <!--<Label Text="Phone1"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                    <Label Text="{Binding OperatingClient.Phone1}"
-                           FontSize="16"/>
-
-                    <Label Text="Phone2"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                    <Label Text="{Binding OperatingClient.Phone2}"
-                           FontSize="16"/>-->
+                <CollectionView Grid.Row="0"
+                                x:Name="colView">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5"
+                                           Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PhoneNumber">
+                            <Grid  RowDefinitions="auto, *"
+                                   Padding="15,10,5,10"
+                                   HeightRequest="65"
+                                   BackgroundColor="WhiteSmoke">
+                                <Label FontSize="14"
+                                       MaxLines="1"
+                                       LineBreakMode="TailTruncation"
+                                       Text="Phone Number"
+                                       FontAttributes="Bold"/>
+                                <Label FontSize="16"
+                                       VerticalTextAlignment="Center"
+                                       Text="{Binding number}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <Label Text="Date started visiting"
                            FontSize="14"
                            TextColor="SlateGrey"/>
-                <Label Text="{Binding OperatingClient.date_started}"
+                <Label Text="{Binding OperatingClient.date_started, StringFormat='{0:yyyy/MM/dd}'}"
                            FontSize="16"/>
                 <Label Text="Note"
                        FontSize="14"

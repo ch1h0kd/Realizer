@@ -53,7 +53,7 @@ namespace Realizer
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddTransient<ClientsViewModel>();
             builder.Services.AddTransient<ProductsViewModel>();
-            //builder.Services.AddTransient<ClientIndivViewModel>();
+            builder.Services.AddTransient<PhoneNumViewModel>();
             builder.Services.AddTransient<ProductIndivViewModel>();
             builder.Services.AddTransient<HistoryViewModel>();
             builder.Services.AddTransient<PurchaseViewModel>();

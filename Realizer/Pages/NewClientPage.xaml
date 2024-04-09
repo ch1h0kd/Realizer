@@ -13,7 +13,8 @@
         <ToolbarItem IconImageSource="cancel.png"
                      Clicked="BackToClient_Clicked"/>
         <ToolbarItem IconImageSource="check.png"
-                     Command="{Binding SaveClientCommand}"/>
+                     Command="{Binding SaveClientCommand}">
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <Shell.BackButtonBehavior>
@@ -32,6 +33,7 @@
                         x:Name="NameEntry"
                         Margin="0"
                         FontSize="16"
+                        MaxLength="35"
                         Keyboard="Text"
                         ClearButtonVisibility="WhileEditing"/>
                 <Label Text="State"
@@ -39,11 +41,13 @@
                 <Entry Text="{Binding OperatingClient.state}"
                        Placeholder="Enter Address"
                        Margin="0"
+                       MaxLength="20"
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>
                 <Label Text="City"
                        FontSize="14"/>
                 <Entry Text="{Binding OperatingClient.city}"
+                       MaxLength="20"
                        FontSize="16"/>
                 <Label Text="Apartment Number"
                        FontSize="14"/>
@@ -63,28 +67,59 @@
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>
 
-                <Label Text="Phone1"
-                       FontSize="14"/>
-                <!--<Entry Text="{Binding OperatingClient.Phone1, Mode=OneWayToSource}"
-                       MaxLength="15"
-                       Keyboard="Telephone"
-                       Margin="0"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>
+                <Label FontSize="14"
+                       MaxLines="1"
+                       LineBreakMode="TailTruncation"
+                       Text="Phone Number"/>
 
-                <Label Text="Phone2"
-           FontSize="14"/>
-                <Entry MaxLength="15"
-           Text="{Binding OperatingClient.Phone2, Mode=OneWayToSource}"
-                       Keyboard="Telephone"
-                       Margin="0"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>-->
+                <Entry 
+                        FontSize="16"
+                            Keyboard="Numeric"
+                            x:Name="phoneEntry"
+                            x:DataType="vm:PhoneNumViewModel"
+                            Text="{Binding OperatingNum}"
+                            ClearButtonVisibility="WhileEditing"
+                            VerticalTextAlignment="Center"/>
+
+                <!--<CollectionView Grid.Row="0">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5"
+                                           Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PhoneNumber">
+                            <Grid  RowDefinitions="auto, *"
+                                   Padding="15,10,5,10"
+                                   HeightRequest="65"
+                                   BackgroundColor="WhiteSmoke">
+                                <Label FontSize="14"
+                                       MaxLines="1"
+                                       LineBreakMode="TailTruncation"
+                                       Text="Phone Number">
+                                </Label>
+                                <Entry Text="{Binding number}" 
+                                    FontSize="16"
+                                        MaxLength="15"
+                                        Keyboard="Numeric"
+                                        ClearButtonVisibility="WhileEditing"
+                                        VerticalTextAlignment="Center"/>
+
+                                --><!--<ImageButton Source="plus.png"
+                                             Grid.Column="3"
+                                             Grid.RowSpan="2"
+                                             HeightRequest="30"
+                                             Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ClientsViewModel}}, Path=GoToClientIndivCommand}"
+                                             CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type models:Client}}}"/>--><!--
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>-->
 
                 <Label Text="Date started visiting"
                        FontSize="14"/>
-                <DatePicker Date="{Binding OperatingClient.date_started, Mode=OneWayToSource}"
+                <DatePicker Date="{Binding OperatingClient.date_started}"
                             FontSize="16"
+                            Format="yyyy/MM/dd"
                             MaximumDate="{Binding MaxDate}"/>
 
                 <Label Text="Note"
@@ -99,24 +134,26 @@
                      Grid.Column="1">
                 <Label Text="ID*"
                        x:Name="IdEntry"
-                        FontSize="14"/>
+                       FontSize="14"/>
                 <Entry Placeholder="Must be unique"
                        Text="{Binding OperatingClient.client_id, Mode=OneWayToSource}"
-                       Keyboard="Numeric"
-                       MaxLength="4"
+                       MaxLength="6"
                        Margin="0"
                        FontSize="16"
+                       Keyboard="Numeric"
                        ClearButtonVisibility="WhileEditing"/>
                 <Label Text="Zip"
                         FontSize="14"/>
                 <Entry Placeholder="Enter Zip"
                        Text="{Binding OperatingClient.zip}"
-                        Keyboard="Numeric"
+                       Keyboard="Numeric"
+                       MaxLength="20"
                        FontSize="16"
                         ClearButtonVisibility="WhileEditing"/>
                 <Label Text="Street"
                        FontSize="14"/>
                 <Entry Text="{Binding OperatingClient.detail_address}"
+                       MaxLength="20"
                        FontSize="16"/>
             </VerticalStackLayout>
         </Grid>

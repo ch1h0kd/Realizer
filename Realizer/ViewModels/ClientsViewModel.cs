@@ -7,17 +7,20 @@ using System.Windows.Input;
 
 namespace Realizer.ViewModels
 {
-    [QueryProperty(nameof(OperatingClient), nameof(Client))]
-    [QueryProperty(nameof(Clients), nameof(Clients))]
+    [QueryProperty(nameof(OperatingClient), nameof(Client))] // receiving a client when moving to Indiv and Edit page
+    [QueryProperty(nameof(Clients), nameof(Clients))] // receiving a collection of clients when moving to Indiv and Edit page
     public partial class ClientsViewModel : ObservableObject
     {
         private readonly DatabaseContext _context;//instance from DatabaseContext
+        private PhoneNumViewModel phoneNumViewModel;
+
         public ICommand Back_Command { get; set; }
         public ClientsViewModel(DatabaseContext context)
         {
             _context = context;
             Back_Command = new Command(BackToClients);
         }
+
         [ObservableProperty]
         private ObservableCollection<Client> _clients = new();
         
@@ -51,6 +54,7 @@ namespace Realizer.ViewModels
 
                     foreach (var client in clients)//insert each client into a obervable collection Clients 
                     {
+
                         Clients.Add(client);
                     }
                 }
@@ -97,6 +101,7 @@ namespace Realizer.ViewModels
                 return;
             }
             await _context.AddItemAsync<Client>(OperatingClient);//create
+            phoneNumViewModel.SavePhoneNumCommand.Execute(this);
             Clients.Add(OperatingClient);//add this client to the collection
             await Shell.Current.GoToAsync("//ClientsPage");
 
@@ -123,10 +128,6 @@ namespace Realizer.ViewModels
                 return;
             }
             await _context.UpdateItemAsync<Client>(OperatingClient);
-            var clientCopy = OperatingClient.Clone();
-            var index = Clients.IndexOf(OperatingClient);
-            Clients.RemoveAt(index);
-            Clients.Insert(index, clientCopy);
 
             GoToClientIndiv(OperatingClient);
         }
@@ -190,23 +191,23 @@ namespace Realizer.ViewModels
         }
 
         [RelayCommand]
-        private async void GoToClientIndiv(Client client)
+        private async void GoToClientIndiv(Client client) //passing a client and collection of clients
         {
             var parameter = new Dictionary<string, object>
             {
-                [nameof(Client)] = client,
-                [nameof(Clients)] = Clients
+                [nameof(Client)] = client, //passing a client
+                [nameof(Clients)] = Clients //passing a collection of clients
             };
             await Shell.Current.GoToAsync("//ClientIndivPage", animate: true, parameter);
         }
 
         [RelayCommand]
-        private async void GoToClientEdit(Client client)
+        private async void GoToClientEdit(Client client) //passing a client and collection of clients
         {
             var parameter = new Dictionary<string, object>
             {
-                [nameof(Client)] = client,
-                [nameof(Clients)] = Clients
+                [nameof(Client)] = client, //passing a client
+                [nameof(Clients)] = Clients //passing a collectio of clients
             };
             await Shell.Current.GoToAsync("//ClientEditPage", animate: true, parameter);
         }

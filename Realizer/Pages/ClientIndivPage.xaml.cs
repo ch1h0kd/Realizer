@@ -7,20 +7,22 @@ namespace Realizer.Pages;
 public partial class ClientIndivPage : ContentPage
 {
     private readonly ClientsViewModel _viewModel;
+    private readonly PhoneNumViewModel _phoeNumviewModel;
 
     public ClientIndivPage() {}
-    public ClientIndivPage(ClientsViewModel viewModel)
+    public ClientIndivPage(ClientsViewModel viewModel, PhoneNumViewModel phoneNumviewModel)
     //public ClientIndivPage(ClientIndivViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
         _viewModel = viewModel;
-        //_viewModel.OperatingClient = EdittedClient;
-        //Console.WriteLine(_viewModel.Client);
+        _phoeNumviewModel = phoneNumviewModel;
     }
-
-    private async void GoToEditPage(object sender, EventArgs e)
+    protected async override void OnAppearing()
     {
-        
+        base.OnAppearing();
+        //get the client's phone numbers
+        await _phoeNumviewModel.LoadPhoneNumByIdAsync(_phoeNumviewModel.OperatingClientId);//set operatingNums
+        colView.ItemsSource = _phoeNumviewModel.OperatingNums;
     }
 }

@@ -21,8 +21,8 @@ namespace Realizer.Models
         public string apt_num { get; set; }
         public string nickname { get; set; }
         //[Column (TypeName = "TEXT")]
-        public string date_started { get; set; }
-        public string date_next { get; set; }
+        public DateTime date_started { get; set; }
+        public DateTime date_next { get; set; }
         public string note { get; set; }
 
         public Client Clone() => MemberwiseClone() as Client;
