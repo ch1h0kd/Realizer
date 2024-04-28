@@ -15,17 +15,24 @@ namespace Realizer.ViewModels
         private PhoneNumViewModel phoneNumViewModel;
 
         public ICommand Back_Command { get; set; }
-        public ClientsViewModel(DatabaseContext context)
+        public ClientsViewModel(DatabaseContext context, PhoneNumViewModel phoneNumviewmodel)
         {
             _context = context;
             Back_Command = new Command(BackToClients);
+            phoneNumViewModel = phoneNumviewmodel;
         }
 
         [ObservableProperty]
         private ObservableCollection<Client> _clients = new();
-        
+
         [ObservableProperty]
-        private Client _operatingClient = new ();//client that is currently eddited
+        private Client _operatingClient = new();//client that is currently eddited
+
+        [ObservableProperty]
+        private PhoneNumber _operatingNum = new();//number that is currently eddited
+
+        [ObservableProperty]
+        private ObservableCollection<PhoneNumber> _operatingNums = new();//numbers that is currently eddited
 
         [ObservableProperty]
         private bool _isBusy;
@@ -79,7 +86,7 @@ namespace Realizer.ViewModels
             var filtered = await _context.GetFilteredAsync<Client>(x => x.client_id == OperatingClient.client_id);
             if (filtered is not null && filtered.Any())//if we have at least one client in the result
             {
-                if((OperatingClient is null) || (filtered.First().client_key != OperatingClient.client_key))
+                if ((OperatingClient is null) || (filtered.First().client_key != OperatingClient.client_key))
                 {
                     await Shell.Current.DisplayAlert("Alert", "ID already used", "Ok");
                     Error = true;
@@ -94,40 +101,64 @@ namespace Realizer.ViewModels
         [RelayCommand]
         private async Task SaveClientAsync()//loading
         {
-            await ValidateClientAsync();
-            if(Error == true)
-            {
-                Error = false;
-                return;
-            }
-            await _context.AddItemAsync<Client>(OperatingClient);//create
-            phoneNumViewModel.SavePhoneNumCommand.Execute(this);
-            Clients.Add(OperatingClient);//add this client to the collection
-            await Shell.Current.GoToAsync("//ClientsPage");
-
-            //await _context.UpdateItemAsync<Client>(OperatingClient);//update
-
-            //var clientCopy = OperatingClient.Clone();//copy
-
-            //var index = Clients.IndexOf(OperatingClient);
-            //Clients.RemoveAt(index);//remove it from the collection
-
-            //Clients.Insert(index, clientCopy);
-            SetOperatingClientCommand.Execute(new());//reset the value
-
-
-        }
-
-        [RelayCommand]
-        private async Task UpdateClientAsync()
-        {
+            //validate and add client
             await ValidateClientAsync();
             if (Error == true)
             {
                 Error = false;
                 return;
             }
-            await _context.UpdateItemAsync<Client>(OperatingClient);
+            await _context.AddItemAsync<Client>(OperatingClient);
+
+            //validate and add phone number
+            if (OperatingNum.number != null)
+            {
+                var (isValid, errorMessage) = OperatingNum.Validate();
+                if (!isValid)
+                {
+                    await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
+                    Error = true;
+                    return;
+                }
+                OperatingNum.client_key = OperatingClient.client_key;
+                await phoneNumViewModel.SavePhoneNumAsync(OperatingNum);
+
+            }
+
+            Clients.Add(OperatingClient);//add this client to the collection
+            await Shell.Current.GoToAsync("//ClientsPage");
+
+
+            //SetOperatingClientCommand.Execute(new());//reset the value
+        }
+
+        [RelayCommand]
+        private async Task UpdateClientAsync()
+        {
+            //validate and update client
+            await ValidateClientAsync();
+            if (Error == true)
+            {
+                Error = false;
+                return;
+            }
+            await _context.UpdateItemAsync(OperatingClient);
+
+            //update phone number
+            if (OperatingNums != null && OperatingNums.Any())
+            {
+                foreach (var each in OperatingNums)
+                {
+                    var (isValid, errorMessage) = each.Validate();
+                    if (!isValid)
+                    {
+                        await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
+                        Error = true;
+                        return;
+                    }
+                    await phoneNumViewModel.UpdatePhoneNumAsync(each);
+                }
+            }
 
             GoToClientIndiv(OperatingClient);
         }
@@ -155,7 +186,6 @@ namespace Realizer.ViewModels
             else return;
         }
 
-
         private async Task ExecuteAsync(Func<Task> operation, string? busyText = null)
         {
             IsBusy = true;
@@ -173,7 +203,7 @@ namespace Realizer.ViewModels
 
         [RelayCommand]
         private async Task SearchClients(string searchTerm)
-        
+
         {
             Clients.Clear();
             Searching = true;

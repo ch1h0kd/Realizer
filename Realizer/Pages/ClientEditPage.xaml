@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Realizer.ViewModels"
@@ -56,25 +56,33 @@
                            Placeholder="Max 20 characters"
                            Margin="0"
                            FontSize="16"
-                           ClearButtonVisibility="WhileEditing"/>
+                           ClearButtonVisibility="WhileEditing"/>        
 
-                    <Label Text="Phone1"
-           FontSize="14"/>
-                    <!--<Entry Text="{Binding OperatingClient.Phone1, Mode=OneWayToSource}"
-                       MaxLength="15"
-                       Keyboard="Telephone"
-                       Margin="0"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>
+                    <CollectionView Grid.Row="0"
+                                    x:Name="colView">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5"
+                                               Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:PhoneNumber">
+                                <Grid  HeightRequest="65">
+                                    <VerticalStackLayout>
+                                        <Label FontSize="14"
+                                               Text="Phone Number"/>
+                                        <Entry FontSize="16"
+                                               Keyboard="Telephone"
+                                               VerticalTextAlignment="Center"
+                                               Text="{Binding number}"
+                                               ClearButtonVisibility="WhileEditing"
+                                               MaxLength="20"/>
 
-                <Label Text="Phone2"
-           FontSize="14"/>
-                <Entry MaxLength="15"
-           Text="{Binding OperatingClient.Phone2, Mode=OneWayToSource}"
-                       Keyboard="Telephone"
-                       Margin="0"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>-->
+                                    </VerticalStackLayout>
+                                
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
                     <Label Text="Date started visiting"
                             FontSize="14"/>

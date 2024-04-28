@@ -13,12 +13,13 @@ namespace Realizer.Data
     {
         private const string DbName = "MyDatabase.db";
         private static string DbPath => Path.Combine(FileSystem.AppDataDirectory, DbName);
+        ///data/user/0/com.companyname.realizer/files/MyDatabase.db
 
         private SQLiteAsyncConnection _connection;
         private SQLiteAsyncConnection Database => //Try to get Database
             (_connection ??= new SQLiteAsyncConnection(DbPath, //have connection? If not, build it
                 SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite));//create, read, write database
-        
+
         private async Task CreateTableIfNotExist<TTable>() where TTable : class, new()
             //<TTable> = type parameter, genetic type. 
         {
@@ -39,11 +40,13 @@ namespace Realizer.Data
 
         public async Task<IEnumerable<TTable>> GetAllAsync<TTable>() where TTable : class, new()
         {
+            Console.WriteLine("path = ", DbPath);
             var table = await GetTableAsync<TTable>();//get a table here
             return await table.ToListAsync();
         }
 
         //returns items that are true to the given condition
+        //ex. _context.GetFilteredAsync<Client>(x => x.client_id == id)
         public async Task<IEnumerable<TTable>> GetFilteredAsync<TTable>(Expression<Func<TTable, bool>> predicate) where TTable : class, new()
         {
             var table = await GetTableAsync<TTable>();//get a table here
@@ -53,6 +56,8 @@ namespace Realizer.Data
         public async Task<bool> AddItemAsync<TTable>(TTable item) where TTable : class, new()
             //<bool> = return type
         {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DbName);
+            //var path2 = Android.OS.Environment.ExternalStorageDirectory; //Public external files
             return await Execute<TTable, bool>(async () => await Database.InsertAsync(item) > 0);
         }
 
@@ -68,7 +73,7 @@ namespace Realizer.Data
         }
 
         //returns boolean, whether the table contains an object(row) with the given primary key
-        public async Task<bool> ContainsItemByIdAsync<TTable>(TTable primaryKey) where TTable:class, new()
+        public async Task<bool> ContainsItemByIdAsync<TTable>(TTable primaryKey) where TTable : class, new()
         {
             return await Execute<TTable, bool>(async () => await Database.FindAsync<TTable>(primaryKey) != null);
         }

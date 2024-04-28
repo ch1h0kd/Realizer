@@ -19,7 +19,7 @@ namespace Realizer.ViewModels
         }
 
         [ObservableProperty]
-        private ObservableCollection<PhoneNumber> _operatingNum;//no need?
+        private ObservableCollection<PhoneNumber> _operatingNum = new();//no need?
 
         [ObservableProperty]
         private ObservableCollection<PhoneNumber> _operatingNums = new();//client that is currently eddited
@@ -40,81 +40,56 @@ namespace Realizer.ViewModels
         //private DateTime _maxDate = DateTime.Today;
 
         //loadPhone needs id, load client is not called
-        public async Task LoadPhoneNumByIdAsync(int client_id)
+        public async Task LoadPhoneNumByIdAsync(int client_key)
         {
-            var filtered = await _context.GetFilteredAsync<PhoneNumber>(x => x.client_id == client_id);
+            var filtered = await _context.GetFilteredAsync<PhoneNumber>(x => x.client_key == client_key);
             if (filtered is not null && filtered.Any())
             {
-                OperatingNums ??= new ObservableCollection<PhoneNumber>(); //if null, initialize
+                //_operatingNums ??= new ObservableCollection<PhoneNumber>(); //if null, initialize
 
                 foreach (var num in filtered)
                 {
-
                     OperatingNums.Add(num);
                 }
             }
         }
-        //public async Task ValidateClientAsync()
-        //{
-        //    if (OperatingClient is null)
-        //    {//do nothing
-        //        Error = true;
-        //        return;
-        //    }
-        //    var (isValid, errorMessage) = OperatingClient.Validate();
-        //    if (!isValid)
-        //    {
-        //        await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
-        //        Error = true;
-        //        return;
-        //    }
-        //    //var busyText = await _context.GetFilteredAsync<Client>(x => x.Id == OperatingClient.Id) is null ? "New ID" : "ID exists";
-        //    var filtered = await _context.GetFilteredAsync<Client>(x => x.client_id == OperatingClient.client_id);
-        //    if (filtered is not null && filtered.Any())//if we have at least one client in the result
-        //    {
-        //        if ((OperatingClient is null) || (filtered.First().client_key != OperatingClient.client_key))
-        //        {
-        //            await Shell.Current.DisplayAlert("Alert", "ID already used", "Ok");
-        //            Error = true;
-        //            return;
-        //        }
-        //    }
-        //}
 
         //[RelayCommand]
         //private void SetOperatingPhoneNum(ObservableCollection<PhoneNumber>? phoneNum) => OperatingNums = phoneNum ?? new();
 
-        [RelayCommand]
-        private async Task SavePhoneNumAsync()//loading
+        //save a PhoneNubmer object with given client_id and phone number
+        //is called after validation, number.number is not null
+        public async Task SavePhoneNumAsync(PhoneNumber number)
         {
-            //await ValidateClientAsync();
-            //if (Error == true)
-            //{
-            //    Error = false;
-            //    return;
-            //}
-            foreach(PhoneNumber number in OperatingNums)
+            var filtered = await _context.GetFilteredAsync<PhoneNumber>(x => x.client_key == number.client_key && x.number == number.number);
+            if (filtered == null)
             {
-                await _context.AddItemAsync<PhoneNumber>(number);//create
-                //Numbers.Add(number);//add this client to the collection
+                Console.WriteLine("GetFilteredAsync returned null");
+                return;
             }
-            //SetOperatingPhoneNumCommand.Execute(new());//reset the value
-
-
+            if (filtered != null && filtered.Any())
+            {
+                return;
+            }
+            await _context.AddItemAsync(number);//create
         }
 
-        [RelayCommand]
-        private async Task UpdatePhoneNumAsync()
+        //validate and update
+        public async Task UpdatePhoneNumAsync(PhoneNumber num)
         {
-            //await ValidateClientAsync();
-            //if (Error == true)
+            await _context.UpdateItemAsync(num);
+            //foreach (var each in OperatingNums)
             //{
-            //    Error = false;
-            //    return;
+            //    var (isValid, errorMessage) = each.Validate();
+            //    if (!isValid)
+            //    {
+            //        await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
+            //        //Error = true;
+            //        return;
+            //    }
+            //    await _context.UpdateItemAsync(each);
             //}
-            //await _context.UpdateItemAsync<Client>(OperatingClient);
 
-            //GoToClientIndiv(OperatingClient);
         }
 
         //[RelayCommand]
@@ -210,6 +185,4 @@ namespace Realizer.ViewModels
         //}
 
     }
-
-
 }

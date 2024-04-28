@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:Realizer.Models"
@@ -68,23 +68,22 @@
                 <CollectionView Grid.Row="0"
                                 x:Name="colView">
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="5"
+                        <LinearItemsLayout ItemSpacing="10"
                                            Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:PhoneNumber">
-                            <Grid  RowDefinitions="auto, *"
-                                   Padding="15,10,5,10"
-                                   HeightRequest="65"
-                                   BackgroundColor="WhiteSmoke">
-                                <Label FontSize="14"
-                                       MaxLines="1"
-                                       LineBreakMode="TailTruncation"
-                                       Text="Phone Number"
-                                       FontAttributes="Bold"/>
-                                <Label FontSize="16"
-                                       VerticalTextAlignment="Center"
-                                       Text="{Binding number}"/>
+                            <Grid  HeightRequest="65">
+                                <VerticalStackLayout Spacing="10">
+                                    <Label FontSize="14"
+                                           TextColor="SlateGrey"
+                                           Text="Phone Number"/>
+                                    <Label FontSize="16"
+                                           VerticalTextAlignment="Center"
+                                           Text="{Binding number}"/>
+
+                                </VerticalStackLayout>
+                                
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

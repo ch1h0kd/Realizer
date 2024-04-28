@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Realizer.ViewModels"
@@ -74,11 +74,11 @@
 
                 <Entry 
                         FontSize="16"
-                            Keyboard="Numeric"
-                            x:Name="phoneEntry"
-                            x:DataType="vm:PhoneNumViewModel"
-                            Text="{Binding OperatingNum}"
+                            Keyboard="Telephone"
+                            Text="{Binding OperatingNum.number}"
                             ClearButtonVisibility="WhileEditing"
+                            MaxLength="20"
+                            Placeholder="Enter Phone Number"
                             VerticalTextAlignment="Center"/>
 
                 <!--<CollectionView Grid.Row="0">
