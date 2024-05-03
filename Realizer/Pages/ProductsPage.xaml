@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Realizer.ViewModels"
@@ -28,7 +28,8 @@
         <Grid Grid.Row="1"
               RowDefinitions="Auto, *">
             <ScrollView VerticalOptions="FillAndExpand">
-                <CollectionView ItemsSource="{Binding Products}">
+                <CollectionView ItemsSource="{Binding Products}"
+                        EmptyView="No Product Found">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout
                         ItemSpacing="10"
@@ -126,7 +127,7 @@
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
+                    <!--<CollectionView.EmptyView>
                         <ContentView>
                             <VerticalStackLayout HorizontalOptions="Center"
                                              VerticalOptions="Center">
@@ -135,7 +136,7 @@
                                    FontAttributes="Bold"/>
                             </VerticalStackLayout>
                         </ContentView>
-                    </CollectionView.EmptyView>
+                    </CollectionView.EmptyView>-->
                     <!--when there is no client-->
                 </CollectionView>
             </ScrollView>

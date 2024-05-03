@@ -23,14 +23,14 @@
             <VerticalStackLayout Spacing="10">
                 <Grid ColumnDefinitions="2*,*"
                       RowSpacing="10">
-                    <!--<VerticalStackLayout Grid.Column="1"
+                    <VerticalStackLayout Grid.Column="1"
                                          Spacing="10">
                         <Label Text="ID"
                                 FontSize="14"
                                 TextColor="SlateGrey"/>
                         <Label Text="{Binding OperatingClient.client_id}"
                                FontSize="16"/>
-                    </VerticalStackLayout>-->
+                    </VerticalStackLayout>
                     <VerticalStackLayout Spacing="10">
                             <Label Text="Name"
                                FontSize="14"
@@ -46,7 +46,7 @@
                 </Grid>
                 <VerticalStackLayout Grid.Row="1"
                                      Spacing="10">
-                    <!--<Label Text="Address"
+                    <Label Text="Address"
                                FontSize="14"
                                TextColor="SlateGrey"/>
                     <Label Grid.ColumnSpan="2"
@@ -64,7 +64,7 @@
                                FontSize="14"
                                TextColor="SlateGrey"/>
                     <Label Text="{Binding OperatingClient.nickname}"
-                               FontSize="16"/>-->  
+                               FontSize="16"/>  
                     
                     <CollectionView Grid.Row="0"
                                     x:Name="colView">
@@ -87,7 +87,7 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
 
-                    <!--<Label Text="Date started visiting"
+                    <Label Text="Date started visiting"
                                FontSize="14"
                                TextColor="SlateGrey"/>
                     <Label Text="{Binding OperatingClient.date_started, StringFormat='{0:yyyy/MM/dd}'}"
@@ -96,7 +96,7 @@
                            FontSize="14"
                            TextColor="SlateGrey"/>
                     <Label Text="{Binding OperatingClient.note}"
-                                   FontSize="16"/>-->
+                                   FontSize="16"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </Grid>

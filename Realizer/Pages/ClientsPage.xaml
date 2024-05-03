@@ -35,7 +35,7 @@
                         VerticalScrollBarVisibility="Always">
                 <CollectionView 
                         Grid.Row="0"
-                        EmptyView=""
+                        EmptyView="No Clients Found"
                         ItemsSource="{Binding Clients}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout
@@ -106,18 +106,6 @@
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <!--how to display each item-->
-                    <CollectionView.EmptyView>
-                        <ContentView>
-                            <VerticalStackLayout HorizontalOptions="Center"
-                                                     VerticalOptions="Center">
-                                <Label Text="No Clients Found"
-                                           FontSize="18"
-                                           FontAttributes="Bold"/>
-                            </VerticalStackLayout>
-                        </ContentView>
-                    </CollectionView.EmptyView>
-                    <!--when there is no client-->
                 </CollectionView>
             </ScrollView>
             <!--<ActivityIndicator Grid.RowSpan="2"
