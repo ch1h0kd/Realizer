@@ -111,23 +111,29 @@ namespace Realizer.ViewModels
             await _context.AddItemAsync<Client>(OperatingClient);
 
             //validate and add phone number
-            if (OperatingNum.number != null)
+            OperatingNums.Add(OperatingNum);
+            foreach (var each in OperatingNums)
             {
-                var (isValid, errorMessage) = OperatingNum.Validate();
-                if (!isValid)
+                if (each.number != null)
                 {
-                    await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
-                    Error = true;
-                    return;
+                    var (isValid, errorMessage) = each.Validate();
+                    if (!isValid)
+                    {
+                        await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
+                        Error = true;
+                        return;
+                    }
+                    else if(errorMessage != "empty") {
+                        each.client_key = OperatingClient.client_key;
+                        await phoneNumViewModel.SavePhoneNumAsync(each);
+                    }
+                    //when empty, do nothing
+                    
                 }
-                OperatingNum.client_key = OperatingClient.client_key;
-                await phoneNumViewModel.SavePhoneNumAsync(OperatingNum);
 
             }
-
             Clients.Add(OperatingClient);//add this client to the collection
             await Shell.Current.GoToAsync("//ClientsPage");
-
 
             //SetOperatingClientCommand.Execute(new());//reset the value
         }
@@ -149,14 +155,26 @@ namespace Realizer.ViewModels
             {
                 foreach (var each in OperatingNums)
                 {
-                    var (isValid, errorMessage) = each.Validate();
-                    if (!isValid)
+                    if (each.number != null)
                     {
-                        await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
-                        Error = true;
-                        return;
+                        var (isValid, errorMessage) = each.Validate();
+                        if (!isValid)
+                        {
+                            await Shell.Current.DisplayAlert("Alert", errorMessage, "Ok");
+                            Error = true;
+                            return;
+                        }
+                        else if(errorMessage == "empty")
+                        {
+                            await phoneNumViewModel.DeletePhoneNumAsync(each.phoneNum_id);
+                        }
+                        else if(each.client_key == 0)
+                        {
+                            each.client_key = OperatingClient.client_key;
+                            await phoneNumViewModel.SavePhoneNumAsync(each);
+                        }
+                        else await phoneNumViewModel.UpdatePhoneNumAsync(each);
                     }
-                    await phoneNumViewModel.UpdatePhoneNumAsync(each);
                 }
             }
 

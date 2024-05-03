@@ -17,89 +17,88 @@
                      CommandParameter="{Binding OperatingClient}"/>
     </ContentPage.ToolbarItems>
     
-    <Grid RowDefinitions="Auto, *"
-          Padding="15">
-        <VerticalStackLayout Spacing="10">
-            <Grid ColumnDefinitions="2*,*"
-                  RowSpacing="10">
-                <VerticalStackLayout Grid.Column="1"
-                                     Spacing="10">
-                    <Label Text="ID"
-                            FontSize="14"
-                            TextColor="SlateGrey"/>
-                    <Label Text="{Binding OperatingClient.client_id}"
-                           FontSize="16"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout Spacing="10">
-                        <Label Text="Name"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                    <Label  Text="{Binding OperatingClient.client_name}"
-                            FontSize="14"/>
-                    <Label Text="Zip"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                    <Label Text="{Binding OperatingClient.zip}"
-                           FontSize="16"/>
-                </VerticalStackLayout>
-            </Grid>
-            <VerticalStackLayout Grid.Row="1"
-                                 Spacing="10">
-                <Label Text="Address"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                <Label Grid.ColumnSpan="2"
-                           FontSize="16">
-                    <Label.Text>
-                        <MultiBinding StringFormat="{}{0}{1}{2}{3}">
-                            <Binding Path="OperatingClient.state"/>
-                            <Binding Path="OperatingClient.city"/>
-                            <Binding Path="OperatingClient.detail_address"/>
-                            <Binding Path="OperatingClient.apt_num"/>
-                        </MultiBinding>
-                    </Label.Text>
-                </Label>
-                <Label Text="Nickname"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                <Label Text="{Binding OperatingClient.nickname}"
-                           FontSize="16"/>
-
-                <CollectionView Grid.Row="0"
-                                x:Name="colView">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="10"
-                                           Orientation="Vertical"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:PhoneNumber">
-                            <Grid  HeightRequest="65">
-                                <VerticalStackLayout Spacing="10">
-                                    <Label FontSize="14"
-                                           TextColor="SlateGrey"
-                                           Text="Phone Number"/>
-                                    <Label FontSize="16"
-                                           VerticalTextAlignment="Center"
-                                           Text="{Binding number}"/>
-
-                                </VerticalStackLayout>
-                                
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-                <Label Text="Date started visiting"
-                           FontSize="14"
-                           TextColor="SlateGrey"/>
-                <Label Text="{Binding OperatingClient.date_started, StringFormat='{0:yyyy/MM/dd}'}"
-                           FontSize="16"/>
-                <Label Text="Note"
-                       FontSize="14"
-                       TextColor="SlateGrey"/>
-                <Label Text="{Binding OperatingClient.note}"
+    <ScrollView VerticalOptions="FillAndExpand">
+        <Grid RowDefinitions="Auto, *"
+              Padding="15">
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnDefinitions="2*,*"
+                      RowSpacing="10">
+                    <!--<VerticalStackLayout Grid.Column="1"
+                                         Spacing="10">
+                        <Label Text="ID"
+                                FontSize="14"
+                                TextColor="SlateGrey"/>
+                        <Label Text="{Binding OperatingClient.client_id}"
                                FontSize="16"/>
+                    </VerticalStackLayout>-->
+                    <VerticalStackLayout Spacing="10">
+                            <Label Text="Name"
+                               FontSize="14"
+                               TextColor="SlateGrey"/>
+                        <Label  Text="{Binding OperatingClient.client_name}"
+                                FontSize="14"/>
+                        <Label Text="Zip"
+                               FontSize="14"
+                               TextColor="SlateGrey"/>
+                        <Label Text="{Binding OperatingClient.zip}"
+                               FontSize="16"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <VerticalStackLayout Grid.Row="1"
+                                     Spacing="10">
+                    <!--<Label Text="Address"
+                               FontSize="14"
+                               TextColor="SlateGrey"/>
+                    <Label Grid.ColumnSpan="2"
+                               FontSize="16">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                <Binding Path="OperatingClient.state"/>
+                                <Binding Path="OperatingClient.city"/>
+                                <Binding Path="OperatingClient.detail_address"/>
+                                <Binding Path="OperatingClient.apt_num"/>
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                    <Label Text="Nickname"
+                               FontSize="14"
+                               TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.nickname}"
+                               FontSize="16"/>-->  
+                    
+                    <CollectionView Grid.Row="0"
+                                    x:Name="colView">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="10"
+                                                Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:PhoneNumber">
+                                    <VerticalStackLayout Spacing="10">
+                                        <Label FontSize="14"
+                                                TextColor="SlateGrey"
+                                                Text="Phone Number"/>
+                                        <Label FontSize="16"
+                                                VerticalTextAlignment="Center"
+                                                Text="{Binding number}"/>
+
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    <!--<Label Text="Date started visiting"
+                               FontSize="14"
+                               TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.date_started, StringFormat='{0:yyyy/MM/dd}'}"
+                               FontSize="16"/>
+                    <Label Text="Note"
+                           FontSize="14"
+                           TextColor="SlateGrey"/>
+                    <Label Text="{Binding OperatingClient.note}"
+                                   FontSize="16"/>-->
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
-    </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>

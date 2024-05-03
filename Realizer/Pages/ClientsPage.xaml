@@ -31,9 +31,11 @@
         </Grid>
         <Grid Grid.Row="1"
               RowDefinitions="*, Auto">
-            <ScrollView VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand"
+                        VerticalScrollBarVisibility="Always">
                 <CollectionView 
                         Grid.Row="0"
+                        EmptyView=""
                         ItemsSource="{Binding Clients}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout

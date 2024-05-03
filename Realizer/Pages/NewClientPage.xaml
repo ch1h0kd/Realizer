@@ -67,19 +67,52 @@
                        FontSize="16"
                        ClearButtonVisibility="WhileEditing"/>
 
-                <Label FontSize="14"
-                       MaxLines="1"
-                       LineBreakMode="TailTruncation"
-                       Text="Phone Number"/>
+                <HorizontalStackLayout Spacing="30">
 
-                <Entry 
-                        FontSize="16"
-                            Keyboard="Telephone"
-                            Text="{Binding OperatingNum.number}"
-                            ClearButtonVisibility="WhileEditing"
-                            MaxLength="20"
-                            Placeholder="Enter Phone Number"
-                            VerticalTextAlignment="Center"/>
+                    <CollectionView Grid.Row="0"
+                                ItemsSource="{Binding OperatingNums}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5"
+                                                   Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:PhoneNumber">
+                                <Grid  HeightRequest="65">
+                                    <VerticalStackLayout>
+                                        <Label FontSize="14"
+                                               MaxLines="1"
+                                               LineBreakMode="TailTruncation"
+                                               Text="Phone Number"/>
+                                        <Entry FontSize="16"
+                                               Keyboard="Telephone"
+                                               Text="{Binding number}"
+                                               ClearButtonVisibility="WhileEditing"
+                                               MaxLength="20"
+                                               Placeholder="Enter Phone Number"
+                                               VerticalTextAlignment="Center"/>
+
+                                    </VerticalStackLayout>
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="+"
+                            CornerRadius="20"
+                            BackgroundColor="Green"
+                            WidthRequest="35"
+                            HeightRequest="35"
+                            Padding="0,0,0.3,5"
+                            FontSize="25"
+                            VerticalOptions="End"
+                            Clicked="More_Clicked"/>
+                </HorizontalStackLayout>
+                
+
+                
+
+
 
                 <!--<CollectionView Grid.Row="0">
                     <CollectionView.ItemsLayout>
@@ -104,12 +137,14 @@
                                         ClearButtonVisibility="WhileEditing"
                                         VerticalTextAlignment="Center"/>
 
-                                --><!--<ImageButton Source="plus.png"
+                                -->
+                <!--<ImageButton Source="plus.png"
                                              Grid.Column="3"
                                              Grid.RowSpan="2"
                                              HeightRequest="30"
                                              Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ClientsViewModel}}, Path=GoToClientIndivCommand}"
-                                             CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type models:Client}}}"/>--><!--
+                                             CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type models:Client}}}"/>-->
+                <!--
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

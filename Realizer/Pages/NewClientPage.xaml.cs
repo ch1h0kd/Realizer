@@ -13,8 +13,7 @@ public partial class NewClientPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
         _viewModel = viewModel;
-        //_phoneNumViewModel = phoneNumviewModel;
-        //phoneEntry.BindingContext = _phoneNumViewModel;
+        _viewModel.OperatingNums.Add(new Models.PhoneNumber());
     }
 
     private async void BackToClient_Clicked(object sender, EventArgs e)
@@ -22,6 +21,10 @@ public partial class NewClientPage : ContentPage
         await Shell.Current.GoToAsync("//ClientsPage");
     }
 
+    void More_Clicked(System.Object sender, System.EventArgs e)
+    {
+        _viewModel.OperatingNums.Add(new Models.PhoneNumber());
+    }
 
 
 

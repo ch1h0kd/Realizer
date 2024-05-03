@@ -14,14 +14,28 @@ namespace Realizer.Models
         public int client_key { get; set; }
         public string number { get; set; }
 
+        //number cannot be null
         public (bool IsValid, string? ErrorMessage) Validate()
         {
-            var temp = new string(number.Where(Char.IsDigit).ToArray());
-            if (string.IsNullOrEmpty(temp) == true || temp.Length < 4)
+            if (number != null) //null check
             {
-                return (false, "Phone number has to be at least 4 digits");
+                var temp = new string(number.Where(Char.IsDigit).ToArray());
+                if (string.IsNullOrEmpty(temp))
+                {
+                    return (true, "empty");
+                }
+                else if (temp.Length < 4)
+                {
+                    return (false, "Phone number has to be at least 4 digits");
+                }
+                else return (true, null);
             }
-            else return (true, null);
+            else
+            {
+                Console.WriteLine("number is null");
+                return (true, null);
+            }
+
         }
     }
 }

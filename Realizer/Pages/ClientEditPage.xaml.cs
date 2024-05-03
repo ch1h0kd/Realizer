@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Realizer.Models;
 using Realizer.ViewModels;
 
@@ -8,6 +9,7 @@ public partial class ClientEditPage : ContentPage
 {
     private readonly ClientsViewModel _viewModel;
     private readonly PhoneNumViewModel _phoneNumviewModel;
+    private ObservableCollection<PhoneNumber> numColl;
 
     Client client;
     public Client operatingClient
@@ -32,19 +34,36 @@ public partial class ClientEditPage : ContentPage
     public async void setItemsSource(int key)
     {
         await _phoneNumviewModel.LoadPhoneNumByIdAsync(key);//set operatingNums
-        _viewModel.OperatingNums = _phoneNumviewModel.OperatingNums;//sync
-        colView.ItemsSource = _phoneNumviewModel.OperatingNums;
-
+        numColl = _phoneNumviewModel.OperatingNums;
+        _viewModel.OperatingNums = numColl;//sync
+        colView.ItemsSource = numColl;
+        if(numColl.Count() > 1)
+        {
+            removeButton.IsVisible = true;
+        }
     }
-    //private void updateClicked(object sender, EventArgs e)
-    //{
-    //    _viewModel.UpdateClientCommand.Execute(this);
-    //    _viewModel.GoToClientIndivCommand.Execute(this);
-    //    //show saved or not
-    //}
 
-    //private async void BackToClient_Clicked(object sender, EventArgs e)
-    //{
-    //    await Shell.Current.GoToAsync("/ClientIndivPage");
-    //}
+    void More_Clicked(System.Object sender, System.EventArgs e)
+    {
+        numColl.Add(new Models.PhoneNumber());
+
+        if (numColl.Count() == 2)
+        {
+           removeButton.IsVisible = true;
+        }
+    }
+
+    async void Less_Clicked(System.Object sender, System.EventArgs e)
+    {
+        //delete the last phoneNumber
+        var index = numColl.Count() - 1;
+        await _phoneNumviewModel.DeletePhoneNumAsync(numColl[index].phoneNum_id);
+        numColl.RemoveAt(index);
+
+        if (numColl.Count() == 1)
+        {
+            removeButton.IsVisible = false;
+        }
+    }
+
 }

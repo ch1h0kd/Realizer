@@ -17,111 +17,134 @@
     </ContentPage.ToolbarItems>
     <ScrollView VerticalOptions="FillAndExpand">
         <Grid RowDefinitions="Auto, *"
-          Padding="15">
-            <Grid ColumnDefinitions="1.5*,*"
-                      RowSpacing="15">
-                <VerticalStackLayout>
-                    <Label Text="Name*"
-                        FontSize="14"/>
-                    <Entry  Text="{Binding OperatingClient.client_name}"
-                        x:Name="NameEntry"
+              Margin="30, 20, 30, 0">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="ID*"
+                    x:Name="IdEntry"
+                    FontSize="14"/>
+                <Entry Placeholder="Must be unique"
+                        Text="{Binding OperatingClient.client_id, Mode=TwoWay}"
+                        Keyboard="Numeric"
+                        MaxLength="4"
                         Margin="0"
                         FontSize="16"
-                        Keyboard="Text"
+                        WidthRequest="200"
+                        HorizontalOptions="Start"
                         ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="State"
-                            FontSize="14"/>
-                    <Entry Text="{Binding OperatingClient.state}"
-                       Placeholder="Enter Address"
-                       Margin="0"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="City"
-                       FontSize="14"/>
-                    <Entry Text="{Binding OperatingClient.city}"
-                       FontSize="16"/>
-                    <Label Text="Apartment Number"
-           FontSize="14"/>
-                    <Entry Text="{Binding OperatingClient.apt_num}"
-                       MaxLength="30"
-                       Margin="0"
-                       Keyboard="Text"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>
+                <Label Text="Name*"
+                    FontSize="14"/>
+                <Entry  Text="{Binding OperatingClient.client_name}"
+                    x:Name="NameEntry"
+                    Margin="0"
+                    FontSize="16"
+                    Keyboard="Text"
+                    ClearButtonVisibility="WhileEditing"/>
+                <Label Text="Zip"
+                    FontSize="14"/>
+                <Entry Placeholder="Enter Zip"
+                    Text="{Binding OperatingClient.zip}"
+                    Keyboard="Numeric"
+                    FontSize="16"
+                    WidthRequest="200"
+                    HorizontalOptions="Start"
+                    ClearButtonVisibility="WhileEditing"/>
+                <Label Text="Street"
+                        FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.detail_address}"
+                        FontSize="16"/>
+                <Label Text="State"
+                        FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.state}"
+                        Placeholder="Enter Address"
+                        Margin="0"
+                        FontSize="16"
+                        ClearButtonVisibility="WhileEditing"/>
+                <Label Text="City"
+                    FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.city}"
+                    FontSize="16"/>
+                <Label Text="Apartment Number"
+                        FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.apt_num}"
+                    MaxLength="30"
+                    Margin="0"
+                    Keyboard="Text"
+                    FontSize="16"
+                    ClearButtonVisibility="WhileEditing"/>
 
-                    <Label Text="Nickname"
-                           FontSize="14"/>
-                    <Entry Text="{Binding OperatingClient.nickname}"
-                           MaxLength="20"
-                           Placeholder="Max 20 characters"
-                           Margin="0"
-                           FontSize="16"
-                           ClearButtonVisibility="WhileEditing"/>        
+                <Label Text="Nickname"
+                        FontSize="14"/>
+                <Entry Text="{Binding OperatingClient.nickname}"
+                        MaxLength="20"
+                        Placeholder="Max 20 characters"
+                        Margin="0"
+                        FontSize="16"
+                        ClearButtonVisibility="WhileEditing"/>
 
-                    <CollectionView Grid.Row="0"
-                                    x:Name="colView">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="5"
-                                               Orientation="Vertical"/>
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:PhoneNumber">
-                                <Grid  HeightRequest="65">
-                                    <VerticalStackLayout>
-                                        <Label FontSize="14"
-                                               Text="Phone Number"/>
-                                        <Entry FontSize="16"
-                                               Keyboard="Telephone"
-                                               VerticalTextAlignment="Center"
-                                               Text="{Binding number}"
-                                               ClearButtonVisibility="WhileEditing"
-                                               MaxLength="20"/>
-
-                                    </VerticalStackLayout>
+                <CollectionView Grid.Row="0"
+                                x:Name="colView">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5"
+                                            Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PhoneNumber">
+                            <Grid  HeightRequest="65">
+                                <VerticalStackLayout>
+                                    <Label FontSize="14"
+                                            Text="Phone Number"/>
+                                    <Entry FontSize="16"
+                                            Keyboard="Telephone"
+                                            WidthRequest="250"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding number}"
+                                            ClearButtonVisibility="WhileEditing"
+                                            MaxLength="20"/>
+                                </VerticalStackLayout>
                                 
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-                    <Label Text="Date started visiting"
-                            FontSize="14"/>
-                    <DatePicker Date="{Binding OperatingClient.date_started, Mode=OneWayToSource}"
-                                FontSize="16"
-                            MaximumDate="{Binding MaxDate}"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="1">
-                    <Label Text="ID*"
-                       x:Name="IdEntry"
+                <HorizontalStackLayout Spacing="20"
+                                       Margin="0,-3,0,0">
+                    <Button Text="+"
+                    CornerRadius="20"
+                    BackgroundColor="Green"
+                    WidthRequest="35"
+                    HeightRequest="35"
+                    Padding="0,0,0.3,5"
+                    FontSize="25"
+                    HorizontalOptions="Start"
+                    Clicked="More_Clicked"/>
+
+                <Button Text="ー"
+                    CornerRadius="20"
+                    BackgroundColor="Green"
+                    WidthRequest="35"
+                    HeightRequest="35"
+                    Padding="0,0,0,0"
+                    x:Name="removeButton"
+                    FontSize="20"
+                    IsVisible="false"
+                    Clicked="Less_Clicked"/>
+                </HorizontalStackLayout>
+                
+
+                <Label Text="Date started visiting"
+                       Margin="0,3,0,0"
                         FontSize="14"/>
-                    <Entry Placeholder="Must be unique"
-                           Text="{Binding OperatingClient.client_id, Mode=TwoWay}"
-                           Keyboard="Numeric"
-                           MaxLength="4"
-                           Margin="0"
-                           FontSize="16"
-                           ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="Zip"
-                        FontSize="14"/>
-                    <Entry Placeholder="Enter Zip"
-                       Text="{Binding OperatingClient.zip}"
-                        Keyboard="Numeric"
-                       FontSize="16"
-                        ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="Street"
-           FontSize="14"/>
-                    <Entry Text="{Binding OperatingClient.detail_address}"
-           FontSize="16"/>
-                </VerticalStackLayout>
-            </Grid>
-            <VerticalStackLayout Grid.Row="1">
+                <DatePicker Date="{Binding OperatingClient.date_started, Mode=OneWayToSource}"
+                            FontSize="16"
+                        MaximumDate="{Binding MaxDate}"/>
                 <Label Text="Note"
                         FontSize="14"/>
                 <Entry MaxLength="200"
-                       Text="{Binding OperatingClient.note}"
-                       Margin="0"
-                       FontSize="16"
-                       ClearButtonVisibility="WhileEditing"/>
+                        Text="{Binding OperatingClient.note}"
+                        Margin="0"
+                        FontSize="16"
+                        ClearButtonVisibility="WhileEditing"/>
                 <Button Text="Delete"
                     Margin="15"
                     Command="{Binding DeleteClientCommand}"
