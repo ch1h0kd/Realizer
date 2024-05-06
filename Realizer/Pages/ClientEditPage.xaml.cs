@@ -31,9 +31,9 @@ public partial class ClientEditPage : ContentPage
         _phoneNumviewModel = phoneNumviewModel;
     }
 
-    public async void setItemsSource(int key)
+    public async void setItemsSource(int client_key)
     {
-        await _phoneNumviewModel.LoadPhoneNumByIdAsync(key);//set operatingNums
+        await _phoneNumviewModel.LoadPhoneNumByIdAsync(client_key);//set operatingNums
         numColl = _phoneNumviewModel.OperatingNums;
         _viewModel.OperatingNums = numColl;//sync
         colView.ItemsSource = numColl;
@@ -41,11 +41,12 @@ public partial class ClientEditPage : ContentPage
         {
             removeButton.IsVisible = true;
         }
+        else _viewModel.OperatingNums.Add(new PhoneNumber());
     }
 
     void More_Clicked(System.Object sender, System.EventArgs e)
     {
-        numColl.Add(new Models.PhoneNumber());
+        numColl.Add(new PhoneNumber());
 
         if (numColl.Count() == 2)
         {
